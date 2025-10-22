@@ -1,14 +1,12 @@
-import express from 'express'
-// import { signup, login, logout, updateProfile } from '../controllers/auth.controller.js'
+import express from "express";
+import { protectRoute } from "../middleware/auth.middleware.js";
+import { getMessages, getUsersForSidebar, sendMessage } from "../controllers/message.controller.js";
 
+const router = express.Router();
 
+router.get("/users", protectRoute, getUsersForSidebar);
+router.get("/:id", protectRoute, getMessages);
 
-const router = express.Router()
+router.post("/send/:id", protectRoute, sendMessage);
 
-
-router.get('/message',(req,res)=>{
-  res.send(`Hello from message`)
-})
-
-
-export default router
+export default router;
